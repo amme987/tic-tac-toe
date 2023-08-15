@@ -8,6 +8,7 @@ const Gameboard = (() => {
   for (let i = 0; i < rows; i++) {
     gameboard[i] = [];
     for (let j = 0; j < columns; j++) {
+      gameboard[i][j] = [];
       (i + j) % 2 === 0 ? (gameboard[i][j] = "X") : (gameboard[i][j] = "O");
     }
   }
