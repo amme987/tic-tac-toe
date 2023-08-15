@@ -1,4 +1,3 @@
-// Gameboard module
 const Gameboard = (() => {
   const gameboard = [];
   const rows = 3;
@@ -51,7 +50,28 @@ const Gameboard = (() => {
 // console.log(Gameboard);
 
 // Player factory
-const Player = () => {};
 
-// displayController module
+const Player = (() => {
+  const playerOne = "emms";
+  const playerTwo = "bwaids";
+
+  const players = [playerOne, playerTwo];
+  let activePlayer = players[0];
+
+  const playerTurn = () => {
+    if (activePlayer === playerOne) {
+      activePlayer = playerTwo;
+    } else {
+      activePlayer = playerOne;
+    }
+    return activePlayer;
+  };
+
+  return { playerTurn };
+})();
+// Player();
+console.log(Player.playerTurn());
+console.log(Player.playerTurn());
+
+// displayController module to control the flow of the game
 const displayController = (() => {})();
