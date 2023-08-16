@@ -33,63 +33,40 @@ const Gameboard = (() => {
   return { board, displayBoard, gameboard };
 })();
 
-// console.log(Gameboard);
-
-// Player factory
 const Player = (name, marker) => {
-  // const playerOne = () => {
-  //   const name = "emms";
-  //   const marker = "X";
-  // };
-  // const playerTwo = () => {
-  //   const name = "bwaids";
-  //   const marker = "O";
-  // };
+  const locations = [];
 
-  // const players = [playerOne, playerTwo];
-  // let activePlayer = players[0];
-
-  // const playerTurn = () => {
-  //   console.log(activePlayer);
-  //   if (activePlayer === playerOne) {
-  //     console.log("emmstest");
-  //     activePlayer = playerTwo;
-  //   } else {
-  //     activePlayer = playerOne;
-  //   }
-  //   return activePlayer;
-  // };
-
-  return { name, marker };
+  return { name, marker, locations };
 };
-
-// console.log(Player().playerTurn());
-// console.log(Player().playerTurn());
 
 // displayController module to control the flow of the game
 const displayController = (() => {
   const board = Gameboard.board;
   const displayBoard = Gameboard.displayBoard;
   const gameboard = Gameboard.gameboard;
-  const players = [Player("emms", "X"), Player("bwaids", "O")];
+  const playerOne = Player("emms", "X");
+  const playerTwo = Player("bwaids", "O");
+  const players = [playerOne, playerTwo];
   let activePlayer = players[0];
+  // let filter = [];
+  let filter = [];
 
   const switchPlayer = () =>
     (activePlayer = activePlayer === players[0] ? players[1] : players[0]);
-  // console.log(playerTurn());
 
   // Let players put their markers on the board
   board.addEventListener("click", e => {
-    // console.log(activePlayer);
-
     if (e.target.localName === "button" && e.target.textContent === "") {
       gameboard[e.target.id] = activePlayer.marker;
-      switchPlayer();
+      // Add marker location to array to help with win conditions later
+      activePlayer.locations.push(Number(e.target.id));
       displayBoard();
+      switchPlayer();
     }
   });
 
-  // playGame;
+  const winningCombos = [0, 1, 2];
 
+  const checkWin = () => {};
   // return { players };
 })();
