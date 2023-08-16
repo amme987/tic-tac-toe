@@ -56,12 +56,26 @@ const displayController = (() => {
     }
   });
 
-  const winningCombos = [0, 1, 2];
+  // @todo Input the rest of the winning combos
+  const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+  ];
 
   const checkWin = () => {
-    if (winningCombos.every(item => activePlayer.locations.includes(item))) {
-      return console.log(`${activePlayer.name} is the winner!`);
+    for (let i = 0; i < winningCombos.length; i++) {
+      // console.log(item);
+      // console.log(activePlayer.locations);
+      if (
+        winningCombos[i].every(item => activePlayer.locations.includes(item))
+      ) {
+        return console.log(`${activePlayer.name} is the winner!`);
+      }
     }
+
+    // if (winningCombos.every(item => activePlayer.locations.includes(item))) {
+    //   return console.log(`${activePlayer.name} is the winner!`);
+    // }
   };
 
   return { players };
