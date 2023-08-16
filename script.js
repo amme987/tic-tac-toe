@@ -26,52 +26,70 @@ const Gameboard = (() => {
       board.appendChild(button).textContent = item;
       // });
     });
-    // return board;
   };
 
   displayBoard();
 
-  // Let players put their markers on the board
-  board.addEventListener("click", e => {
-    if (e.target.localName === "button") {
-      if (e.target.textContent === "") {
-        gameboard[e.target.id] = "X";
-        displayBoard();
-      } else {
-        gameboard[e.target.id] = "O";
-        displayBoard();
-      }
-    }
-  });
-
-  return { gameboard, displayBoard };
+  return { board, displayBoard, gameboard };
 })();
 
 // console.log(Gameboard);
 
 // Player factory
+const Player = (name, marker) => {
+  // const playerOne = () => {
+  //   const name = "emms";
+  //   const marker = "X";
+  // };
+  // const playerTwo = () => {
+  //   const name = "bwaids";
+  //   const marker = "O";
+  // };
 
-const Player = (() => {
-  const playerOne = "emms";
-  const playerTwo = "bwaids";
+  // const players = [playerOne, playerTwo];
+  // let activePlayer = players[0];
 
-  const players = [playerOne, playerTwo];
-  let activePlayer = players[0];
+  // const playerTurn = () => {
+  //   console.log(activePlayer);
+  //   if (activePlayer === playerOne) {
+  //     console.log("emmstest");
+  //     activePlayer = playerTwo;
+  //   } else {
+  //     activePlayer = playerOne;
+  //   }
+  //   return activePlayer;
+  // };
 
-  const playerTurn = () => {
-    if (activePlayer === playerOne) {
-      activePlayer = playerTwo;
-    } else {
-      activePlayer = playerOne;
-    }
-    return activePlayer;
-  };
+  return { name, marker };
+};
 
-  return { playerTurn };
-})();
-// Player();
-console.log(Player.playerTurn());
-console.log(Player.playerTurn());
+// console.log(Player().playerTurn());
+// console.log(Player().playerTurn());
 
 // displayController module to control the flow of the game
-const displayController = (() => {})();
+const displayController = (() => {
+  const board = Gameboard.board;
+  const displayBoard = Gameboard.displayBoard;
+  const gameboard = Gameboard.gameboard;
+  const players = [Player("emms", "X"), Player("bwaids", "O")];
+  let activePlayer = players[0];
+
+  const switchPlayer = () =>
+    (activePlayer = activePlayer === players[0] ? players[1] : players[0]);
+  // console.log(playerTurn());
+
+  // Let players put their markers on the board
+  board.addEventListener("click", e => {
+    // console.log(activePlayer);
+
+    if (e.target.localName === "button" && e.target.textContent === "") {
+      gameboard[e.target.id] = activePlayer.marker;
+      switchPlayer();
+      displayBoard();
+    }
+  });
+
+  // playGame;
+
+  // return { players };
+})();
