@@ -1,16 +1,6 @@
 const Gameboard = (() => {
   const gameboard = [];
-  const rows = 3;
-  const columns = 3;
 
-  // Gameboard array
-  //   for (let i = 0; i < rows; i++) {
-  //     gameboard[i] = [];
-  //     for (let j = 0; j < columns; j++) {
-  //       gameboard[i][j] = [];
-  //       //   (i + j) % 2 === 0 ? (gameboard[i][j] = "X") : (gameboard[i][j] = "O");
-  //     }
-  //   }
   for (let i = 0; i < 9; i++) {
     gameboard[i] = "";
   }
@@ -20,11 +10,9 @@ const Gameboard = (() => {
   const displayBoard = () => {
     board.textContent = "";
     gameboard.forEach((item, index) => {
-      // row.forEach(item => {
       const button = document.createElement("button");
       button.setAttribute("id", index);
       board.appendChild(button).textContent = item;
-      // });
     });
   };
 
@@ -48,8 +36,12 @@ const displayController = (() => {
   const playerTwo = Player("bwaids", "O");
   const players = [playerOne, playerTwo];
   let activePlayer = players[0];
-  // let filter = [];
-  let filter = [];
+
+  const playGame = () => {
+    displayBoard();
+    checkWin();
+    switchPlayer();
+  };
 
   const switchPlayer = () =>
     (activePlayer = activePlayer === players[0] ? players[1] : players[0]);
@@ -60,13 +52,17 @@ const displayController = (() => {
       gameboard[e.target.id] = activePlayer.marker;
       // Add marker location to array to help with win conditions later
       activePlayer.locations.push(Number(e.target.id));
-      displayBoard();
-      switchPlayer();
+      playGame();
     }
   });
 
   const winningCombos = [0, 1, 2];
 
-  const checkWin = () => {};
-  // return { players };
+  const checkWin = () => {
+    if (winningCombos.every(item => activePlayer.locations.includes(item))) {
+      return console.log(`${activePlayer.name} is the winner!`);
+    }
+  };
+
+  return { players };
 })();
