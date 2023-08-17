@@ -18,7 +18,7 @@ const Gameboard = (() => {
 
   displayBoard();
 
-  return { board, displayBoard, gameboard };
+  return { displayBoard, gameboard };
 })();
 
 const Player = (name, marker) => {
@@ -29,18 +29,18 @@ const Player = (name, marker) => {
 
 // displayController module to control the flow of the game
 const displayController = (() => {
-  const board = Gameboard.board;
+  const board = document.querySelector(".board");
   const displayBoard = Gameboard.displayBoard;
   const gameboard = Gameboard.gameboard;
   const playerOne = Player("emms", "X");
   const playerTwo = Player("bwaids", "O");
   const players = [playerOne, playerTwo];
   let activePlayer = players[0];
+  const buttons = document.querySelectorAll("button");
 
   const playGame = () => {
     displayBoard();
-    checkWin();
-    switchPlayer();
+    checkWin() ? gameOver() : switchPlayer();
   };
 
   const switchPlayer = () =>
@@ -48,7 +48,12 @@ const displayController = (() => {
 
   // Let players put their markers on the board
   board.addEventListener("click", e => {
-    if (e.target.localName === "button" && e.target.textContent === "") {
+    // If there is no winner, the clicked element is a button, and the space is empty
+    if (
+      !checkWin() &&
+      e.target.localName === "button" &&
+      e.target.textContent === ""
+    ) {
       gameboard[e.target.id] = activePlayer.marker;
       // Add marker location to array to help with win conditions later
       activePlayer.locations.push(Number(e.target.id));
@@ -56,26 +61,31 @@ const displayController = (() => {
     }
   });
 
-  // @todo Input the rest of the winning combos
   const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
   const checkWin = () => {
     for (let i = 0; i < winningCombos.length; i++) {
-      // console.log(item);
-      // console.log(activePlayer.locations);
+      // If every item in current element is in activePlayer.locations array, return the name of the winner
       if (
         winningCombos[i].every(item => activePlayer.locations.includes(item))
       ) {
-        return console.log(`${activePlayer.name} is the winner!`);
+        return true;
       }
     }
+  };
 
-    // if (winningCombos.every(item => activePlayer.locations.includes(item))) {
-    //   return console.log(`${activePlayer.name} is the winner!`);
-    // }
+  const gameOver = () => {
+    const winner = document.querySelector(".winner");
+    winner.textContent = `${activePlayer.name} is the winner!`;
   };
 
   return { players };
