@@ -1,17 +1,11 @@
-/* * {
-  box-sizing: border-box;
-} */
-
 .board {
   display: grid;
   grid-template: repeat(3, 50px) / repeat(3, 50px);
-  background-color: black;
   width: min-content;
   gap: 5px;
 }
 
 .board button {
   background-color: white;
-  /* padding: 0; */
   border: none;
 }

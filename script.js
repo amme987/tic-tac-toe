@@ -8,6 +8,7 @@ const Gameboard = (() => {
   // Create a button element for each element in the array
   const board = document.querySelector(".board");
   const displayBoard = () => {
+    board.style.backgroundColor = "black";
     board.textContent = "";
     gameboard.forEach((item, index) => {
       const button = document.createElement("button");
@@ -16,7 +17,7 @@ const Gameboard = (() => {
     });
   };
 
-  displayBoard();
+  // displayBoard();
 
   return { displayBoard, gameboard };
 })();
@@ -32,20 +33,17 @@ const displayController = (() => {
   const board = document.querySelector(".board");
   const displayBoard = Gameboard.displayBoard;
   const gameboard = Gameboard.gameboard;
-  // const playerOne = Player(document.getElementById("player-one").value, "X");
-  // const playerTwo = Player(document.getElementById("player-two").value, "O");
   let players = [];
-  const button = document.querySelector("button");
+  const startButton = document.querySelector("button");
   let activePlayer;
 
-  button.addEventListener("click", () => {
+  // Submit player names and display board
+  startButton.addEventListener("click", () => {
     const playerOne = Player(document.getElementById("player-one").value, "X");
     const playerTwo = Player(document.getElementById("player-two").value, "O");
     players = [playerOne, playerTwo];
     activePlayer = players[0];
-
     displayBoard();
-    return players, activePlayer;
   });
 
   function playGame() {
@@ -58,8 +56,7 @@ const displayController = (() => {
 
   // Let players put their markers on the board
   board.addEventListener("click", e => {
-    console.log(players);
-    // If there is no winner, the clicked element is a button, and the space is empty
+    // If there is no winner, the clicked element is a button, and the space is empty, add marker
     if (
       !checkWin() &&
       e.target.localName === "button" &&
@@ -89,14 +86,18 @@ const displayController = (() => {
       if (
         winningCombos[i].every(item => activePlayer.locations.includes(item))
       ) {
-        return true;
+        return `${activePlayer.name} is the winner!`;
       }
+    }
+    // If every space on the board is filled, it's a tie
+    if (gameboard.every(item => item)) {
+      return "It's a tie!";
     }
   };
 
   const gameOver = () => {
     const winner = document.querySelector(".winner");
-    winner.textContent = `${activePlayer.name} is the winner!`;
+    winner.textContent = checkWin();
     const button = document.createElement("button");
     button.setAttribute("class", "replay");
     winner.appendChild(button).textContent = "Replay?";
