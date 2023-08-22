@@ -10,7 +10,7 @@
   gap: 5px;
 }
 
-button {
+.board button {
   background-color: white;
   /* padding: 0; */
   border: none;

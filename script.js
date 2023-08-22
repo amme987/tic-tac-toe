@@ -32,22 +32,33 @@ const displayController = (() => {
   const board = document.querySelector(".board");
   const displayBoard = Gameboard.displayBoard;
   const gameboard = Gameboard.gameboard;
-  const playerOne = Player("emms", "X");
-  const playerTwo = Player("bwaids", "O");
-  const players = [playerOne, playerTwo];
-  let activePlayer = players[0];
-  const buttons = document.querySelectorAll("button");
+  // const playerOne = Player(document.getElementById("player-one").value, "X");
+  // const playerTwo = Player(document.getElementById("player-two").value, "O");
+  let players = [];
+  const button = document.querySelector("button");
+  let activePlayer;
 
-  const playGame = () => {
+  button.addEventListener("click", () => {
+    const playerOne = Player(document.getElementById("player-one").value, "X");
+    const playerTwo = Player(document.getElementById("player-two").value, "O");
+    players = [playerOne, playerTwo];
+    activePlayer = players[0];
+
+    displayBoard();
+    return players, activePlayer;
+  });
+
+  function playGame() {
     displayBoard();
     checkWin() ? gameOver() : switchPlayer();
-  };
+  }
 
   const switchPlayer = () =>
     (activePlayer = activePlayer === players[0] ? players[1] : players[0]);
 
   // Let players put their markers on the board
   board.addEventListener("click", e => {
+    console.log(players);
     // If there is no winner, the clicked element is a button, and the space is empty
     if (
       !checkWin() &&
@@ -86,6 +97,10 @@ const displayController = (() => {
   const gameOver = () => {
     const winner = document.querySelector(".winner");
     winner.textContent = `${activePlayer.name} is the winner!`;
+    const button = document.createElement("button");
+    button.setAttribute("class", "replay");
+    winner.appendChild(button).textContent = "Replay?";
+    button.addEventListener("click", () => location.reload());
   };
 
   return { players };
