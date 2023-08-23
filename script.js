@@ -17,8 +17,6 @@ const Gameboard = (() => {
     });
   };
 
-  // displayBoard();
-
   return { displayBoard, gameboard };
 })();
 
@@ -33,16 +31,29 @@ const displayController = (() => {
   const board = document.querySelector(".board");
   const displayBoard = Gameboard.displayBoard;
   const gameboard = Gameboard.gameboard;
-  let players = [];
-  const startButton = document.querySelector("button");
-  let activePlayer;
+  let players = [],
+    activePlayer;
 
-  // Submit player names and display board
-  startButton.addEventListener("click", () => {
+  const getPlayers = () => {
     const playerOne = Player(document.getElementById("player-one").value, "X");
     const playerTwo = Player(document.getElementById("player-two").value, "O");
     players = [playerOne, playerTwo];
     activePlayer = players[0];
+  };
+
+  const displayPlayers = () => {
+    const div = document.querySelector("div");
+    for (let item of players) {
+      const playerName = document.createElement("div");
+      div.appendChild(playerName).textContent = item.name;
+    }
+  };
+
+  const startButton = document.querySelector("button");
+  startButton.addEventListener("click", () => {
+    document.querySelector("form").style.display = "none";
+    getPlayers();
+    displayPlayers();
     displayBoard();
   });
 
@@ -103,6 +114,4 @@ const displayController = (() => {
     winner.appendChild(button).textContent = "Replay?";
     button.addEventListener("click", () => location.reload());
   };
-
-  return { players };
 })();
