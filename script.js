@@ -49,17 +49,43 @@ const displayController = (() => {
     }
   };
 
+  // Active player's name is in bold
+  const displayActivePlayer = () => {
+    console.log(activePlayer);
+    const playerOne = document.querySelector(
+      "body > div.players > div:nth-child(1)"
+    );
+    const playerTwo = document.querySelector(
+      "body > div.players > div:nth-child(2)"
+    );
+    if (activePlayer === players[0]) {
+      console.log("yep");
+      playerOne.style.fontWeight = "bold";
+      playerTwo.style.fontWeight = "normal";
+    } else {
+      playerOne.style.fontWeight = "normal";
+      playerTwo.style.fontWeight = "bold";
+    }
+  };
+
   const startButton = document.querySelector("button");
   startButton.addEventListener("click", () => {
     document.querySelector("form").style.display = "none";
     getPlayers();
     displayPlayers();
+    displayActivePlayer();
     displayBoard();
   });
 
   function playGame() {
     displayBoard();
-    checkWin() ? gameOver() : switchPlayer();
+    if (checkWin()) {
+      gameOver();
+    } else {
+      switchPlayer();
+      displayActivePlayer();
+    }
+    // checkWin() ? gameOver() : switchPlayer();
   }
 
   const switchPlayer = () =>
