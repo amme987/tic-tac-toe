@@ -1,26 +1,38 @@
-body,
-form,
-.players {
-  display: flex;
+* {
+  font-family: "ADLaM Display", cursive;
+  font-size: 28px;
 }
 
 body,
 form {
+  display: flex;
   flex-direction: column;
 }
 
 body {
+  /* height: 100vh; */
   align-items: center;
 }
 
+h1 {
+  margin: 0;
+  font-size: 80px;
+}
+
+/* .player {
+  width: 400px;
+  justify-content: space-around;
+} */
+
 .board {
   display: grid;
-  grid-template: repeat(3, 50px) / repeat(3, 50px);
+  grid-template: repeat(3, 100px) / repeat(3, 100px);
   width: min-content;
-  gap: 5px;
+  gap: 10px;
 }
 
 .board button {
   background-color: white;
   border: none;
+  font-size: xxx-large;
 }

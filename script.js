@@ -35,44 +35,43 @@ const displayController = (() => {
     activePlayer;
 
   const getPlayers = () => {
-    const playerOne = Player(document.getElementById("player-one").value, "X");
-    const playerTwo = Player(document.getElementById("player-two").value, "O");
+    const playerOne = Player(document.getElementById("player-one").value, "✖️");
+    const playerTwo = Player(document.getElementById("player-two").value, "⭕");
     players = [playerOne, playerTwo];
     activePlayer = players[0];
   };
 
-  const displayPlayers = () => {
-    const div = document.querySelector("div");
-    for (let item of players) {
-      const playerName = document.createElement("div");
-      div.appendChild(playerName).textContent = item.name;
-    }
-  };
+  // const displayPlayers = () => {
+  // const div = document.querySelector("div");
+  // for (let item of players) {
+  //   const playerName = document.createElement("div");
+  //   div.appendChild(playerName).textContent = item.name;
+  // }
+  // };
 
-  // Active player's name is in bold
   const displayActivePlayer = () => {
-    console.log(activePlayer);
-    const playerOne = document.querySelector(
-      "body > div.players > div:nth-child(1)"
-    );
-    const playerTwo = document.querySelector(
-      "body > div.players > div:nth-child(2)"
-    );
-    if (activePlayer === players[0]) {
-      console.log("yep");
-      playerOne.style.fontWeight = "bold";
-      playerTwo.style.fontWeight = "normal";
-    } else {
-      playerOne.style.fontWeight = "normal";
-      playerTwo.style.fontWeight = "bold";
-    }
+    const player = document.querySelector(".player");
+    player.textContent = `${activePlayer.name}'s turn`;
+    // const playerOne = document.querySelector(
+    //   "body > div.players > div:nth-child(1)"
+    // );
+    // const playerTwo = document.querySelector(
+    //   "body > div.players > div:nth-child(2)"
+    // );
+    // if (activePlayer === players[0]) {
+    //   playerOne.style.fontWeight = "bold";
+    //   playerTwo.style.fontWeight = "normal";
+    // } else {
+    //   playerOne.style.fontWeight = "normal";
+    //   playerTwo.style.fontWeight = "bold";
+    // }
   };
 
   const startButton = document.querySelector("button");
   startButton.addEventListener("click", () => {
     document.querySelector("form").style.display = "none";
     getPlayers();
-    displayPlayers();
+    // displayPlayers();
     displayActivePlayer();
     displayBoard();
   });
