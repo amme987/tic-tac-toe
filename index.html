@@ -15,19 +15,19 @@
     <title>Tic-Tac-Toe</title>
   </head>
   <body>
-    <h1>Tic-Tac-Toe</h1>
+    <div>
+      <h1>Tic-Tac-Toe</h1>
+      <div class="player"></div>
+    </div>
     <form>
       <label for="player-one"
-        >Player 1
-        <input type="text" name="player-one" id="player-one" value="one"
+        >Player 1 <input type="text" name="player-one" id="player-one" required
       /></label>
       <label for="player-two"
-        >Player 2
-        <input type="text" name="player-two" id="player-two" value="two"
+        >Player 2 <input type="text" name="player-two" id="player-two" required
       /></label>
-      <button type="button">Start</button>
+      <button>Start</button>
     </form>
-    <div class="player"></div>
     <div class="board"></div>
     <div class="winner"></div>
   </body>

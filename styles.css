@@ -7,10 +7,10 @@ body,
 form {
   display: flex;
   flex-direction: column;
+  gap: 30px;
 }
 
 body {
-  /* height: 100vh; */
   align-items: center;
 }
 
@@ -19,10 +19,29 @@ h1 {
   font-size: 80px;
 }
 
-/* .player {
-  width: 400px;
-  justify-content: space-around;
-} */
+input:focus {
+  outline: none;
+}
+
+#player-one {
+  box-shadow: 4px 4px 0px #635994;
+}
+
+#player-two {
+  box-shadow: 4px 4px 0px #f92f60;
+}
+
+form button,
+.replay {
+  align-self: center;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.player {
+  text-align: center;
+}
 
 .board {
   display: grid;

@@ -41,39 +41,25 @@ const displayController = (() => {
     activePlayer = players[0];
   };
 
-  // const displayPlayers = () => {
-  // const div = document.querySelector("div");
-  // for (let item of players) {
-  //   const playerName = document.createElement("div");
-  //   div.appendChild(playerName).textContent = item.name;
-  // }
-  // };
-
   const displayActivePlayer = () => {
     const player = document.querySelector(".player");
     player.textContent = `${activePlayer.name}'s turn`;
-    // const playerOne = document.querySelector(
-    //   "body > div.players > div:nth-child(1)"
-    // );
-    // const playerTwo = document.querySelector(
-    //   "body > div.players > div:nth-child(2)"
-    // );
-    // if (activePlayer === players[0]) {
-    //   playerOne.style.fontWeight = "bold";
-    //   playerTwo.style.fontWeight = "normal";
-    // } else {
-    //   playerOne.style.fontWeight = "normal";
-    //   playerTwo.style.fontWeight = "bold";
-    // }
   };
 
   const startButton = document.querySelector("button");
-  startButton.addEventListener("click", () => {
-    document.querySelector("form").style.display = "none";
-    getPlayers();
-    // displayPlayers();
-    displayActivePlayer();
-    displayBoard();
+  // Only start game when all input fields are filled
+  startButton.addEventListener("click", e => {
+    let inputs = document.querySelectorAll("input");
+    if (Array.from(inputs).every(input => !input.validity.valueMissing)) {
+      // Prevents default action of form being submitted
+      e.preventDefault();
+      document.querySelector("form").style.display = "none";
+      getPlayers();
+      displayActivePlayer();
+      displayBoard();
+    } else {
+      return;
+    }
   });
 
   function playGame() {
@@ -84,7 +70,6 @@ const displayController = (() => {
       switchPlayer();
       displayActivePlayer();
     }
-    // checkWin() ? gameOver() : switchPlayer();
   }
 
   const switchPlayer = () =>
