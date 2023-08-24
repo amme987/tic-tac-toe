@@ -32,6 +32,11 @@ input:focus {
 }
 
 form button,
+.winner button {
+  text-decoration: underline;
+}
+
+form button,
 .replay {
   align-self: center;
   cursor: pointer;
